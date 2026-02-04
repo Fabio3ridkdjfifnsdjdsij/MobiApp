@@ -9,4 +9,4 @@ function Buscar({value, onChange}){
         />
     );
 }
-export default SearchBox;
+export default Buscar;

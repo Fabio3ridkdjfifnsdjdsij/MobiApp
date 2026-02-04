@@ -7,9 +7,10 @@ function CartaServicios({servicio,onEdit}){
           <p>{servicio.ubicacion}</p>
           <p>{servicio.estado}</p>
 
-      
+          <button onClick={()=> onEdit(servicio)}>Editar</button>     
            
 
         </div>
-    )
+    );
 }
+export default CartaServicios;

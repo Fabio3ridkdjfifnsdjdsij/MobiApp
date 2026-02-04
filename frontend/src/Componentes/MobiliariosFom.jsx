@@ -1,26 +1,29 @@
 import{useState} from "react";
 
-function FormServicios({onGuardar,Cargar}){
+function MobiliariosForm({onGuardar,Cargar}){
     const [codigo, setCodigo]=useState("");
+    const[tipo,setTipo]=useState("");
     const [descripcion,setDescripcion]=useState("");
     const [ubicacion,setUbicacion]=useState("");
     const[estado,setEstado]=useState("");
+    const [msg, setMsg] = useState("");
   
     const submit =async (e)=>{
         e.preventDefault();
         setMsg("");
 
-         if(!codigo.trim() || !descripcion.trim() || ubicacion.trim() || estado.trim()){
+         if(!codigo.trim() || !descripcion.trim() || !tipo.trim() ||  !ubicacion.trim() || !estado.trim()){
         setMsg("Nombre y descripcion son obligatorios.");
-        return;
-    }
-    if(tipo.trim().length<3){
+        return;}
+         if(tipo.trim().length<3){
         setMsg("El tipo de mobiliario debe tener al menos 3 caracteres.");
         return;
     }
 
-    const ok= await onGuardar({
+
+       const ok= await onGuardar({
        codigo:codigo.trim(),
+       tipo:tipo.trim(),
        descripcion:descripcion.trim(),
        ubicacion:ubicacion.trim(),
        estado:estado.trim()
@@ -29,6 +32,7 @@ function FormServicios({onGuardar,Cargar}){
   
     if(ok){
         setCodigo("");
+        setTipo("");
         setDescripcion("");
         setUbicacion("");
         setEstado("");
@@ -36,23 +40,55 @@ function FormServicios({onGuardar,Cargar}){
 
     };
 
-    return(
-        <form onSubmit={submit} style={{marginBottom:12}}>
-          
-          <h3>Nuevo Servicio</h3>
 
-          <input
-          type="text"
-          placeholder="Codigo"
-          
-          ></input>
-
-
-
+   
+    return (
+        <form className="mobiliario-form" onSubmit={submit}>
+            <input
+                type="text"
+                placeholder="Código"
+                value={codigo}
+                onChange={(e) => setCodigo(e.target.value)}
+                required
+            />
+            <input
+                type="text"
+                placeholder="Tipo"
+                value={tipo}
+                onChange={(e) => setTipo(e.target.value)}
+                required
+            />
+            <input
+                type="text"
+                placeholder="Descripción"
+                value={descripcion}
+                onChange={(e) => setDescripcion(e.target.value)}
+                required
+            />
+            <input
+                type="text"
+                placeholder="Ubicación"
+                value={ubicacion}
+                onChange={(e) => setUbicacion(e.target.value)}
+                required
+            />
+            <select
+                value={estado}
+                onChange={(e) => setEstado(e.target.value)}
+                required
+            >
+                <option value="">Seleccione un estado ▼</option>
+                <option value="Nuevo">Nuevo</option>
+                <option value="Usado">Usado</option>
+                <option value="Reparación">Reparación</option>
+            </select>
+            <button type="submit" className="btn-agregar">AGREGAR</button>
+            
+            {msg && <div style={{ color: 'red', marginTop: '10px', width: '100%' }}>{msg}</div>}
         </form>
-
-
     );
 
 
 }
+
+export default MobiliariosForm;

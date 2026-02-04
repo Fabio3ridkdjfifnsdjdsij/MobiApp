@@ -1,16 +1,30 @@
-function CartaServicios({servicio,onEdit}){
-    return(
-        <div className="service-item">
-          <h3>{servicio.tipo}</h3>
-          <p>{servicio.codigo}</p>
-          <p>{servicio.descripcion}</p>
-          <p>{servicio.ubicacion}</p>
-          <p>{servicio.estado}</p>
+function MobiliariosCard({ mobiliario, onEdit, onDelete }) {
+return (
+    <div className="mobiliario-card">
+      <div className="barra-lateral">
+        <span className="estado-vertical">{mobiliario.estado}</span>
+      </div>
 
-          <button onClick={()=> onEdit(servicio)}>Editar</button>     
-           
-
+      <div className="card-body">
+        <div className="card-info">
+          <div className="tipo-texto">{mobiliario.tipo}</div>
+          <div className="codigo-grande">{mobiliario.codigo}</div>
+          <div className="detalle-texto"><strong>Descripción:</strong> {mobiliario.descripcion}</div>
+          <div className="detalle-texto"><strong>Ubicación:</strong> {mobiliario.ubicacion}</div>
+          <div className="detalle-texto"><strong>Estado:</strong> {mobiliario.estado}</div>
         </div>
-    );
+
+        <div className="acciones">
+          <button className="btn-editar" onClick={() => onEdit(mobiliario)}>
+            EDITAR
+          </button>
+          <button className="btn-eliminar" onClick={() => onDelete(mobiliario.id)}>
+            ELIMINAR
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+
 }
-export default CartaServicios;
+export default MobiliariosCard;

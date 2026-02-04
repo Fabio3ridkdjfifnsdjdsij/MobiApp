@@ -1,4 +1,7 @@
-const BASE_URL = "http://localhost:5019/api/mobiliarios";
+const BASE_URL = process.env.REACT_APP_API_URL 
+    ? `${process.env.REACT_APP_API_URL}/api/mobiliarios` 
+    : "http://localhost:5019/api/mobiliarios";
+    
 export async function getMobiliarios(){
     const res=await fetch(BASE_URL);
     if(!res.ok) throw new Error("Error al cargar servicios");
